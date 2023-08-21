@@ -139,7 +139,7 @@ class Spreadsheet:
 
 
 class TimesheetPipeline:
-    """This class takes a csv file and transform it into a excel file for uploading daily timesheets to Odoo
+    """This class takes a csv file and transform it into an excel file for uploading daily timesheets to Odoo
     """
     format = "%Y-%m-%d"
 
