@@ -2,23 +2,23 @@ from utils import parse_config
 from timesheet_pipeline import TimesheetPipeline
 
 
-if __name__ == '__main__':
-    path = 'Toggl_Track_summary_report_2023-08-18_2023-08-18.csv'
-    keys_to_remove = ['Client']
-    keys_to_rename = {
-        'Project': 'project_id/id',
-        'Description': 'name',
-        'Duration': 'unit_amount'
-    }
-    project_ids = {
-        'laboral': 4
-    }
-    sep = '-'
+def main():
+    """Main script's function
+    """
+    data = parse_config(path='config.json')
 
-    pipline = TimesheetPipeline(path,
-                                keys_to_remove,
-                                keys_to_rename,
-                                project_ids,
-                                sep)
-    pipline.activities_date = '2023-08-25'
+    pipline = TimesheetPipeline(path=data['path'],
+                                keys_to_remove=data['keys_to_remove'],
+                                columns_to_rename=data['columns_to_rename'],
+                                project_ids=data["project_ids"],
+                                sep=data['sep']
+                                )
+    date = data['date']
+    if date:
+        pipline.activities_date = date
+
     pipline()
+
+
+if __name__ == '__main__':
+    main()

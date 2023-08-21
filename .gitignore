@@ -1,5 +1,6 @@
 __pycache__
 env\*
 *.csv
-*xlsx
-*xlx
+*.xlsx
+*.xlx
+*.json

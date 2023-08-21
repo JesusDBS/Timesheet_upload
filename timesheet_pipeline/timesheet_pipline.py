@@ -231,7 +231,7 @@ class TimesheetPipeline:
 
         for project in projects:
             id = self.project_ids[project]
-            project_ids.append(f'project.project_project_{id}')
+            project_ids.append(f'__export__.project_project_{id}')
 
         self._update_dict_data('project', project_ids)
 
@@ -270,7 +270,7 @@ class TimesheetPipeline:
             if self.sep in description:
                 description = description.split(self.sep)
                 self.task_ids.append(
-                    f'project.project_task_{int(description[0])}')
+                    f'__export__.project_task_{description[0]}')
                 descriptions.append(description[1])
 
             else:
