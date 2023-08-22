@@ -137,6 +137,16 @@ class Spreadsheet:
         rows = list(zip(*rows))
         return list(map(list, rows))
 
+    def set_data(self, data: dict):
+        """Sets the data into Spreadsheet class
+        """
+        self.data = data
+
+    def set_columns_to_rename(self, columns: list):
+        """Sets columns to be renamed
+        """
+        self.columns_to_rename = columns
+
 
 class TimesheetPipeline:
     """This class takes a csv file and transform it into an excel file for uploading daily timesheets to Odoo
@@ -288,14 +298,15 @@ class TimesheetPipeline:
         """Adds date column
         """
         dates = [self.activities_date.strftime(self.format)] *\
-            len(self.data)
+            len(self.data['description'])
+
         self._update_dict_data('date', dates)
 
     def create_spreadsheet(self):
         """Creates a spreadsheet for uploading timesheet to Odoo
         """
-        self.spreadsheet.data = self.data
-        self.spreadsheet.columns_to_rename = self.columns_to_rename
+        self.spreadsheet.set_data(self.data)
+        self.spreadsheet.set_columns_to_rename(self.columns_to_rename)
         self.spreadsheet.create_workbook()
 
     def run(self):
