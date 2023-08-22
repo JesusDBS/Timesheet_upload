@@ -24,15 +24,9 @@ class Spreadsheet:
 
     @date.setter
     def date(self, value):
-        if isinstance(value, str):
-            try:
-                date = datetime.datetime.strptime(value, self.format)
-                self.__date = date
-                return self.__date
-
-            except ValueError:
-                raise ValueError(
-                    f"Your date: '{value}' does not match the format required {self.format}. Please check it.")
+        if isinstance(value, datetime.datetime):
+            self.__date = value.strftime(self.format)
+            return self.__date
 
     @property
     def columns_to_rename(self):
@@ -146,6 +140,11 @@ class Spreadsheet:
         """Sets columns to be renamed
         """
         self.columns_to_rename = columns
+
+    def set_date(self, date: str):
+        """Sets the date for naming the workbook
+        """
+        self.date = date
 
 
 class TimesheetPipeline:
@@ -307,7 +306,13 @@ class TimesheetPipeline:
         """
         self.spreadsheet.set_data(self.data)
         self.spreadsheet.set_columns_to_rename(self.columns_to_rename)
+        self.spreadsheet.set_date(self.activities_date)
         self.spreadsheet.create_workbook()
+
+    def set_activities_date(self, date: str):
+        """Sets the date for the timesheets
+        """
+        self.activities_date = date
 
     def run(self):
         self.read_csv()

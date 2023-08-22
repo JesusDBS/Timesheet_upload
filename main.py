@@ -15,7 +15,7 @@ def main():
                                 )
     date = data['date']
     if date:
-        pipline.activities_date = date
+        pipline.set_activities_date(date)
 
     pipline()
 
