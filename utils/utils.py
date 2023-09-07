@@ -1,4 +1,5 @@
 import json
+from typing import Callable
 
 
 def parse_config(path: str = 'config.json') -> dict:
@@ -16,3 +17,12 @@ def parse_config(path: str = 'config.json') -> dict:
     except:
 
         raise FileNotFoundError("Json file not found")
+    
+
+def report_done(fun: Callable) -> Callable:
+    """Reports when a function has been executed
+    """
+    def wrapper(*args, **kwagrs):
+        fun(*args, **kwagrs)
+        print(f".........{fun.__name__} is done.........")
+    return wrapper

@@ -5,6 +5,8 @@ import xlsxwriter
 from typing import Any
 from collections import deque
 
+from utils import report_done
+
 
 class Spreadsheet:
     """This class creates a spreadsheet for uploading timesheet to Odoo
@@ -48,6 +50,7 @@ class Spreadsheet:
         self.worksheet = self.workbook.add_worksheet()
 
     # TODO refactor this method and try to create the workbook inheritating from Workbook class
+    @report_done
     def create_workbook(self):
         """Creates the workbook
         """
