@@ -6,7 +6,9 @@ def main():
     """Main script's function
     """
     data = parse_config(path='config.json')
-    path = update_date_in_filename(path=data['path'])
+    date = data['date'] or False
+
+    path = update_date_in_filename(path=data['path'], date=date)
 
     pipline = TimesheetPipeline(path=path,
                                 keys_to_remove=data['keys_to_remove'],
@@ -14,7 +16,7 @@ def main():
                                 project_ids=data["project_ids"],
                                 sep=data['sep']
                                 )
-    date = data['date']
+    
     if date:
         pipline.set_activities_date(date)
 
